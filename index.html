@@ -1,68 +1,62 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
-    <head>
-        <meta charset="utf-8"/>
-        <title>QR-Generator</title>
-        <style>
-            .wrapper {
-                max-width: 400px;
-                margin: 0 auto;
-                font-family: sans-serif;
-                text-align: center;
-            }
-            input, button {
-                border: 1px solid black;
-                padding: 0.5rem;
-                font-size: 20px;
-            }
-            form {
-                display: flex;
-                flex-direction: column;
-                gap: 1rem;
-                margin-bottom: 1rem;
-            }
-            @media print {
-                form {
-                    display: none;
-                }
-            }
-        </style>
-    </head>
-    <body>
-        <div class="wrapper">
-            <h1>QR-Generator</h1>
-            <form>
-                <input id="ssid" placeholder="SSID">
-                <input id="passwort" placeholder="Passwort">
-                <button type="button" id="btn">generieren</button>
-            </form>
-            <div id="qrcode">QR-Code</div>
-        </div>
-        <script type="text/javascript" src="qrcode.js"></script>
-        <script type="text/javascript" src="html5-qrcode.js"></script>
-        <script>
-            function updateQRCode(text) {
+  <head>
+    <meta charset="utf-8" />
+    <title>QR-Generator</title>
+    <style>
+      .wrapper {
+        max-width: 400px;
+        margin: 0 auto;
+        font-family: sans-serif;
+        text-align: center;
+      }
+      input,
+      button {
+        border: 1px solid black;
+        padding: 0.5rem;
+        font-size: 20px;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-bottom: 1rem;
+      }
+      @media print {
+        form {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <h1>QR-Generator</h1>
+      <form>
+        <input id="ssid" placeholder="SSID" />
+        <input id="passwort" placeholder="Passwort" />
+        <button type="button" id="btn">generieren</button>
+      </form>
+      <div id="qrcode">QR-Code</div>
+    </div>
+    <script src="qrcode.js"></script>
+    <script src="html5-qrcode.js"></script>
+    <script>
+      function updateQRCode(text) {
+        var element = document.getElementById('qrcode');
 
-                var element = document.getElementById("qrcode");
+        var bodyElement = document.body;
+        if (element.lastChild) element.replaceChild(showQRCode(text), element.lastChild);
+        else element.appendChild(showQRCode(text));
+      }
 
-                var bodyElement = document.body;
-                if(element.lastChild)
-                element.replaceChild(showQRCode(text), element.lastChild);
-                else
-                element.appendChild(showQRCode(text));
-
-            }
-
-            var ref = document.getElementById("btn")
-            ref.addEventListener("click", () => {
-                
-                var ssid = document.getElementById("ssid").value;
-                var pw = document.getElementById("passwort").value;
-                var wlanString = `WIFI:S:${ssid};T:WPA;P:${pw};H:false;;`
-                updateQRCode(wlanString)
-
-            })
-        </script>
-    </body>
-</htnl>
+      var ref = document.getElementById('btn');
+      ref.addEventListener('click', () => {
+        var ssid = document.getElementById('ssid').value;
+        var pw = document.getElementById('passwort').value;
+        var wlanString = `WIFI:S:${ssid};T:WPA;P:${pw};H:false;;`;
+        updateQRCode(wlanString);
+      });
+    </script>
+  </body>
+</html>
